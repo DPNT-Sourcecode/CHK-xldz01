@@ -4,7 +4,6 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-black = "*"
 
 [packages]
 tdl-client-python = "==0.26.2"
@@ -14,6 +13,3 @@ pytest-cov = "==2.1.0"
 
 [requires]
 python_version = "3.7"
-
-[pipenv]
-allow_prereleases = true
