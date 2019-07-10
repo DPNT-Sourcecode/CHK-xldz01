@@ -46,10 +46,9 @@ def checkout(skus):
     for sku, quantity in basket.items():
         total += RULES[sku].calculate_for(quantity)
 
-    return total
+    return round(total)
 
 
-print(checkout("AABBE"))
 
 
 
