@@ -4,7 +4,7 @@ class Discount:
         self.quantity = quantity
 
     def calculate_for(self, quantity):
-        return quantity // self.price * self.quantity
+        return quantity // self.quantity * self.price
 
 
 class PricePolicy:
@@ -17,7 +17,7 @@ class PricePolicy:
             return self.original_price * quantity
 
         return (
-            quantity % self.discount.quantity * self.original_price * quantity
+            quantity % self.discount.quantity * self.original_price
             + self.discount_for(quantity)
         )
 
@@ -53,5 +53,8 @@ def checkout(skus):
         total += RULES[sku].calculate_for(quantity)
 
     return round(total)
+
+
+print(checkout("AAA"))
 
 
