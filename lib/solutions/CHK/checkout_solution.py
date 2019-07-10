@@ -13,7 +13,13 @@ class PricePolicy:
         self.discount = discount
 
     def calculate_for(self, quantity):
-        pass
+        return self.original_price * quantity - self.discount_for(quantity)
+
+    def discount_for(self, quantity):
+        if not self.discount:
+            return 0
+
+        return self.discount.calculate_for(quantity)
 
 
 RULES = {
@@ -31,12 +37,20 @@ def checkout(skus):
     for i in skus:
         if i not in RULES:
             return -1
-        if i not in basket:
+        if i in basket:
             basket[i] += 1
         else:
             basket[i] = 1
 
-    raise NotImplementedError()
+    total = 0
+    for sku, quantity in basket.items():
+        total += RULES[sku].calculate_for(quantity)
+
+    return total
+
+
+print(checkout("AABBE"))
+
 
 
 
