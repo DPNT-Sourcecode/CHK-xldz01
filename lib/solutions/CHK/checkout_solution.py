@@ -7,12 +7,20 @@ class Discount:
         return quantity * self.price / self.quantity
 
 
+class PricePolicy:
+    def __init__(self, original_price, discount=None):
+        self.original_price = original_price
+        self.discount = discount
+
+    def calculate_for(self, quantity):
+        pass
+
 
 RULES = {
-    "A": 0,
-    "B": 0,
-    "C": 0,
-    "D": 0,
+    "A": PricePolicy(50, Discount(130, 3)),
+    "B": PricePolicy(50, Discount(45, 2)),
+    "C": PricePolicy(20),
+    "D": PricePolicy(15),
 }
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -29,5 +37,6 @@ def checkout(skus):
             basket[i] = 1
 
     raise NotImplementedError()
+
 
 
