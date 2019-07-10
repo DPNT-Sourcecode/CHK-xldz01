@@ -30,7 +30,7 @@ class PricePolicy:
 
 RULES = {
     "A": PricePolicy(50, Discount(130, 3)),
-    "B": PricePolicy(50, Discount(45, 2)),
+    "B": PricePolicy(30, Discount(45, 2)),
     "C": PricePolicy(20),
     "D": PricePolicy(15),
 }
@@ -56,5 +56,6 @@ def checkout(skus):
 
 
 print(checkout("AAA"))
+
 
 
