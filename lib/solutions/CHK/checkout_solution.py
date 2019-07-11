@@ -22,15 +22,16 @@ class PricePolicy:
         return temp
 
     def calculate_for(self, quantity):
+        price = 0
+        tracking_quantity = quantity
         discount = self.find_best_discount(quantity)
+        while discount:
+            price += discount.price
+            tracking_quantity -= discount.quantity
+            discount = self.find_best_discount(tracking_quantity)
 
-        if not discount:
-            return self.original_price * quantity
-
-        return (
-            quantity % discount.quantity * self.original_price
-            + discount.calculate_for(quantity)
-        )
+        price += tracking_quantity * self.original_price
+        return price
 
     def find_best_discount(self, quantity):
         if not self.discounts or quantity == 0:
@@ -50,12 +51,11 @@ RULES = {
 
 def special_promo(basket, skuRequired, numSkuRequired, skuOffer, numSkuOffer):
     sku_apply_to = basket.get(skuRequired, 0)
-        num_offer_applicable = sku_apply_to // numSkuRequired
+    num_offer_applicable = sku_apply_to // numSkuRequired
 
     if sku_apply_to < numSkuRequired:
         return basket
 
-    
     for _ in range(num_offer_applicable):
         sku_get_offer = basket.get(skuOffer, 0)
         if sku_get_offer < numSkuOffer:
@@ -86,5 +86,6 @@ def checkout(skus):
         total += RULES[sku].calculate_for(quantity)
 
     return round(total)
+
 
 
