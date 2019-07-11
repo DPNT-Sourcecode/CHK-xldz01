@@ -102,10 +102,14 @@ def checkout(skus):
 
     special_promo(basket, "E", 2, "B", 1)
     special_promo(basket, "F", 3, "F", 1)
+    special_promo(basket, "N", 3, "M", 1)
+    special_promo(basket, "R", 3, "Q", 1)
+    special_promo(basket, "U", 4, "U", 1)
 
     total = 0
     for sku, quantity in basket.items():
         total += RULES[sku].calculate_for(quantity)
 
     return round(total)
+
 
