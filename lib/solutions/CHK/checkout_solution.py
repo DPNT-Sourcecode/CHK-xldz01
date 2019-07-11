@@ -56,6 +56,3 @@ def checkout(skus):
 
 
 print(checkout("AAA"))
-
-
-
