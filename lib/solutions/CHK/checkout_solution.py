@@ -22,26 +22,29 @@ class PricePolicy:
         return temp
 
     def calculate_for(self, quantity):
-        if not self.discount:
+        discount = self.find_best_discount(quantity)
+
+        if not discount:
             return self.original_price * quantity
 
         return (
-            quantity % self.discount.quantity * self.original_price
-            + self.discount_for(quantity)
+            quantity % discount.quantity * self.original_price
+            + discount.calculate_for(quantity)
         )
 
-    def discount_for(self, quantity):
-        if not self.discount:
-            return 0
+    def find_best_discount(self, quantity):
+        if not self.discounts or quantity == 0:
+            return None
 
-        return self.discount.calculate_for(quantity)
+        return self.discounts.get(quantity, self.find_best_discount(quantity - 1))
 
 
 RULES = {
-    "A": PricePolicy(50, Discount(130, 3)),
-    "B": PricePolicy(30, Discount(45, 2)),
+    "A": PricePolicy(50, [Discount(130, 3), Discount(120, 5)]),
+    "B": PricePolicy(30, [Discount(45, 2)]),
     "C": PricePolicy(20),
     "D": PricePolicy(15),
+    "E": PricePolicy(40),
 }
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -65,4 +68,5 @@ def checkout(skus):
 
 
 print(checkout("AAA"))
+
 
