@@ -20,6 +20,9 @@ class TestSum:
         assert checkout_solution.checkout("AAAAAAAA") == 330
         assert checkout_solution.checkout("FF") == 20
         assert checkout_solution.checkout("FFF") == 20
-        assert checkout_solution.checkout("F") == 20
+        assert checkout_solution.checkout("FFFF") == 30
+        assert checkout_solution.checkout("F") == 10
+        assert checkout_solution.checkout("FFFFFF") == 40
+
 
 
