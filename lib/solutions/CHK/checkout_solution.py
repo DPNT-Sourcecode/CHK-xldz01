@@ -8,9 +8,18 @@ class Discount:
 
 
 class PricePolicy:
-    def __init__(self, original_price, discount=None):
+    def __init__(self, original_price, discounts=None):
         self.original_price = original_price
-        self.discount = discount
+        self.discounts = self.discount_mapping(discounts)
+
+    def discount_mapping(self, discounts):
+        if not discounts:
+            return {}
+
+        temp = {}
+        for discount in discounts:
+            temp[discount.quantity] = discount
+        return temp
 
     def calculate_for(self, quantity):
         if not self.discount:
@@ -56,3 +65,4 @@ def checkout(skus):
 
 
 print(checkout("AAA"))
+
