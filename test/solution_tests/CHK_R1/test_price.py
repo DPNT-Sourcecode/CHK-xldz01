@@ -10,4 +10,9 @@ class TestSum:
         assert checkout_solution.checkout("B") == 30
         assert checkout_solution.checkout("ABCD") == 115
         assert checkout_solution.checkout("ABCDE") == 155
+        assert checkout_solution.checkout("ACDEE") == 165
+        assert checkout_solution.checkout("ACDEEBBA") == 245
+        assert checkout_solution.checkout("ACDEEBBAA") == 275
+        assert checkout_solution.checkout("AAACDEEBBAA") == 275
+
 
