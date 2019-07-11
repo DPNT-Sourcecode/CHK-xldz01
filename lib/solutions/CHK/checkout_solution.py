@@ -50,16 +50,17 @@ RULES = {
 
 def special_promo(basket, skuRequired, numSkuRequired, skuOffer, numSkuOffer):
     sku_apply_to = basket.get(skuRequired, 0)
+        num_offer_applicable = sku_apply_to // numSkuRequired
 
     if sku_apply_to < numSkuRequired:
         return basket
 
-    sku_get_offer = basket.get(skuOffer, 0)
-
-    if sku_get_offer < numSkuOffer:
-        return basket
-
-    basket[skuOffer] -= numSkuOffer
+    
+    for _ in range(num_offer_applicable):
+        sku_get_offer = basket.get(skuOffer, 0)
+        if sku_get_offer < numSkuOffer:
+            return basket
+        basket[skuOffer] -= numSkuOffer
 
     return basket
 
@@ -85,4 +86,5 @@ def checkout(skus):
         total += RULES[sku].calculate_for(quantity)
 
     return round(total)
+
 
