@@ -46,6 +46,24 @@ RULES = {
     "D": PricePolicy(15),
     "E": PricePolicy(40),
 }
+
+
+def special_promo(basket, skuRequired, numSkuRequired, skuOffer, numSkuOffer):
+    sku_apply_to = basket.get(skuRequired, 0)
+
+    if sku_apply_to < numSkuRequired:
+        return basket
+
+    sku_get_offer = basket.get(skuOffer, 0)
+
+    if sku_get_offer < numSkuOffer:
+        return basket
+
+    basket[skuOffer] -= numSkuOffer
+
+    return basket
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -60,6 +78,8 @@ def checkout(skus):
         else:
             basket[i] = 1
 
+    special_promo(basket, "E", 2, "B", 1)
+
     total = 0
     for sku, quantity in basket.items():
         total += RULES[sku].calculate_for(quantity)
@@ -67,6 +87,5 @@ def checkout(skus):
     return round(total)
 
 
-print(checkout("AAA"))
 
 
