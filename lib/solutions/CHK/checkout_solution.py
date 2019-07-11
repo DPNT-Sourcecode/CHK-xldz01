@@ -48,7 +48,7 @@ RULES = {
     "E": PricePolicy(40),
     "F": PricePolicy(10),
     "G": PricePolicy(20),
-    "H": PricePolicy(10, [Discount(45, 5), Discount(10, 80)]),
+    "H": PricePolicy(10, [Discount(45, 5), Discount(80, 10)]),
     "I": PricePolicy(35),
     "J": PricePolicy(60),
     "K": PricePolicy(80, [Discount(150, 2)]),
@@ -111,5 +111,6 @@ def checkout(skus):
         total += RULES[sku].calculate_for(quantity)
 
     return round(total)
+
 
 
