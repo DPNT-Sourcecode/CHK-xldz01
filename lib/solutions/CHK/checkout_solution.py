@@ -112,5 +112,3 @@ def checkout(skus):
 
     return round(total)
 
-
-
