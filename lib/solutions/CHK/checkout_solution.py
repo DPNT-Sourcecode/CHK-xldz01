@@ -86,6 +86,47 @@ def special_promo(basket, skuRequired, numSkuRequired, skuOffer, numSkuOffer):
     return basket
 
 
+def special_promo_group(
+    basket, skusRequired, numSkusRequired, promoPrice, currentPrice=0
+):
+    count = 0
+    price_of_skus_required = []
+
+    for sku in skusRequired:
+        count += basket.get(sku, 0)
+        price_of_skus_required.append(
+            {
+                "sku": sku,
+                "price": RULES[sku].original_price,
+                "count": basket.get(sku, 0),
+            }
+        )
+
+    if count < numSkusRequired:
+        return currentPrice
+
+    currentPrice += promoPrice * (count // numSkusRequired)
+
+    price_of_skus_required = sorted(price_of_skus_required, key=lambda i: i["price"])
+
+    count_for_remaining_sku = count % numSkusRequired
+    i = 0
+    while count_for_remaining_sku > 0 and i < len(price_of_skus_required) - 1:
+        if price_of_skus_required[i]["count"] >= count_for_remaining_sku:
+            currentPrice += count_for_remaining_sku * price_of_skus_required
+            count_for_remaining_sku = 0
+        else:
+            count_for_remaining_sku -= price_of_skus_required[i]["count"]
+            currentPrice += count_for_remaining_sku * price_of_skus_required[i]["price"]
+            i += 1
+
+    for sku in skusRequired:
+        if basket.get(sku):
+            del basket[sku]
+
+    return currentPrice
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
@@ -111,5 +152,6 @@ def checkout(skus):
         total += RULES[sku].calculate_for(quantity)
 
     return round(total)
+
 
 
