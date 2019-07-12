@@ -51,7 +51,7 @@ RULES = {
     "H": PricePolicy(10, [Discount(45, 5), Discount(80, 10)]),
     "I": PricePolicy(35),
     "J": PricePolicy(60),
-    "K": PricePolicy(80, [Discount(150, 2)]),
+    "K": PricePolicy(70, [Discount(120, 2)]),
     "L": PricePolicy(90),
     "M": PricePolicy(15),
     "N": PricePolicy(40),
@@ -59,14 +59,14 @@ RULES = {
     "P": PricePolicy(50, [Discount(200, 5)]),
     "Q": PricePolicy(30, [Discount(80, 3)]),
     "R": PricePolicy(50),
-    "S": PricePolicy(30),
+    "S": PricePolicy(20),
     "T": PricePolicy(20),
     "U": PricePolicy(40),
     "V": PricePolicy(50, [Discount(90, 2), Discount(130, 3)]),
     "W": PricePolicy(20),
-    "X": PricePolicy(90),
-    "Y": PricePolicy(10),
-    "Z": PricePolicy(50),
+    "X": PricePolicy(17),
+    "Y": PricePolicy(20),
+    "Z": PricePolicy(21),
 }
 
 
@@ -111,4 +111,5 @@ def checkout(skus):
         total += RULES[sku].calculate_for(quantity)
 
     return round(total)
+
 
