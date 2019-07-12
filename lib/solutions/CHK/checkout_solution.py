@@ -115,9 +115,11 @@ def special_promo_group(
         if price_of_skus_required[i]["count"] >= count_for_remaining_sku:
             currentPrice += count_for_remaining_sku * price_of_skus_required[i]["price"]
             count_for_remaining_sku = 0
-        else:
+        elif price_of_skus_required[i]["count"] != 0:
             count_for_remaining_sku -= price_of_skus_required[i]["count"]
             currentPrice += count_for_remaining_sku * price_of_skus_required[i]["price"]
+            i += 1
+        else:
             i += 1
 
     for sku in skusRequired:
@@ -152,6 +154,7 @@ def checkout(skus):
         total += RULES[sku].calculate_for(quantity)
 
     return round(total)
+
 
 
 
