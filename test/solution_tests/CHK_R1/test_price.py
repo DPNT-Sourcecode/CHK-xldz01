@@ -23,3 +23,14 @@ class TestSum:
         assert checkout_solution.checkout("FFFF") == 30
         assert checkout_solution.checkout("F") == 10
         assert checkout_solution.checkout("FFFFFF") == 40
+        assert checkout_solution.checkout("XXX") == 45
+        assert checkout_solution.checkout("YYY") == 45
+        assert checkout_solution.checkout("SSS") == 45
+        assert checkout_solution.checkout("TTT") == 45
+        assert checkout_solution.checkout("ZZZ") == 45
+        assert checkout_solution.checkout("X") == 17
+        assert checkout_solution.checkout("Y") == 20
+        assert checkout_solution.checkout("Z") == 21
+        assert checkout_solution.checkout("S") == 20
+        assert checkout_solution.checkout("XXXS") == 62
+
